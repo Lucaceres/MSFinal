@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
@@ -22,10 +23,23 @@ public class ProductoPersonalizadoController {
     @Autowired
     RepoProductoPersonalizado repoProductoPersonalizado;
 
+    @Transactional
+    @DeleteMapping("/productopersonalizado/{id}")
+    public @ResponseBody ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
 
+        Optional<ProductoPersonalizado> productoPersonalizadoOptional = repoProductoPersonalizado.findById(id);
 
+        //VALIDACIONES
 
+        if(productoPersonalizadoOptional.isPresent()) {
+            ProductoPersonalizado producto = productoPersonalizadoOptional.get();
+            repoProductoPersonalizado.deleteById(id);
 
+            return ResponseEntity.ok("producto personalizado borrado");
+        }
+        return new ResponseEntity<Object>("El producto no existe", HttpStatus.NOT_FOUND);
+
+    }
 
 
 
