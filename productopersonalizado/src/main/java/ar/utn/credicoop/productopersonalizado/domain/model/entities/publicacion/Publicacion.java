@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 public class Publicacion extends Persistente {
+
     @Column(name = "nombre")
     private String nombre;
 
@@ -21,7 +22,7 @@ public class Publicacion extends Persistente {
     private ProductoPersonalizado productoPublicado;
 
     //Bidireccional
-    @OneToMany(mappedBy = "publicacion",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "publicacion",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<RegistroEstadoPublicacion> registrosEstados;
 
     public Publicacion() {

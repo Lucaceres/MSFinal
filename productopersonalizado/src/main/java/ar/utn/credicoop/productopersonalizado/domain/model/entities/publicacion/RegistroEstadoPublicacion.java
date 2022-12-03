@@ -1,5 +1,6 @@
 package ar.utn.credicoop.productopersonalizado.domain.model.entities.publicacion;
 
+import ar.utn.credicoop.productopersonalizado.domain.model.entities.Persistente;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "Resgistro_estado_publicacion")
 @Getter
 @Setter
-public class RegistroEstadoPublicacion extends Persistence{
+public class RegistroEstadoPublicacion extends Persistente {
     @Column(name = "fecha")
     private LocalDateTime fechaHoraPublicacion;
 

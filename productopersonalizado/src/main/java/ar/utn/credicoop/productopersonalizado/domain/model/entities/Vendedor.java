@@ -12,25 +12,27 @@ import java.util.List;
 @Table(name = "Vendedor")
 @Setter
 @Getter
-public class Vendedor extends Persistente{
+public class Vendedor extends Persistente {
+
     @Column(name = "nombre")
     private String nombre;
 
     @Column(name = "apellido")
     private String apellido;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Tienda tienda;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<MetodoDePago> metodosDePagos;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vendedor")
     private List<ProductoPersonalizado> productosPersonalizados;
 
     public Vendedor() {
         this.metodosDePagos = new ArrayList<>();
         this.productosPersonalizados = new ArrayList<>();
+        this.tienda = new Tienda();
     }
 
     public Vendedor(String nombre, String apellido, List<MetodoDePago> metodosDePagos) {
