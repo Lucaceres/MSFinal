@@ -11,12 +11,11 @@ import java.util.List;
 @Table(name = "Producto_Personalizado")
 @Setter
 @Getter
-public class ProductoPersonalizado extends Persistente{
+public class ProductoPersonalizado extends Persistente {
+
     @Column(name = "Publicado")
     private Boolean estaPublicado;
 
-    //@NotNull
-    //@ManyToOne
     @Column(name = "ProductoBase_id")
     private Integer productoBase;
 
@@ -24,16 +23,15 @@ public class ProductoPersonalizado extends Persistente{
     @JoinColumn(name = "Producto_Personalizado_id", referencedColumnName = "id")
     private List<Personalizacion> personalizaciones;
 
-    //@ManyToOne
-    //@JoinColumn(name = "vendedor_id")
-    @Column(name = "Vendedor_id")
-    private Integer vendedor;
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
 
     public ProductoPersonalizado() {
         this.personalizaciones = new ArrayList<>();
     }
 
-    public ProductoPersonalizado(Integer productoBase, Integer vendedor,List<Personalizacion>personalizaciones) {
+    public ProductoPersonalizado(Integer productoBase, Vendedor vendedor,List<Personalizacion>personalizaciones) {
         this.productoBase = productoBase;
         this.vendedor = vendedor;
         this.personalizaciones = personalizaciones;
@@ -44,7 +42,6 @@ public class ProductoPersonalizado extends Persistente{
     public Double calcularPrecioFinal(double precioBase){
         return precioBase + this.precioDeLasPersonalizaciones();
     }
-
 
 
     public Double precioDeLasPersonalizaciones() {

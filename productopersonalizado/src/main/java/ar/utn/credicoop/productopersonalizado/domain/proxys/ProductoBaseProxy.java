@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@FeignClient(name="pbase",url = "localhost:8000")
+@FeignClient(name="pbase")
 public interface ProductoBaseProxy {
     @PostMapping("/valid")
      RespuestaValidacion validarProductoPersonalizado(@RequestBody ProductoPersonalizadoDTO producto);
