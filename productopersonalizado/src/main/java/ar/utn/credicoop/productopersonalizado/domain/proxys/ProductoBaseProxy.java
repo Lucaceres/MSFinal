@@ -6,12 +6,13 @@ import ar.utn.credicoop.productopersonalizado.domain.DTOs.ProductoPersonalizadoD
 import ar.utn.credicoop.productopersonalizado.domain.DTOs.RespuestaValidacion;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
-@FeignClient(name="pbase")
+
+@FeignClient(name="pbase",url = "localhost:8000")
 public interface ProductoBaseProxy {
-    @GetMapping("/valid")
-    public @ResponseBody RespuestaValidacion validarProductoPersonalizado(@RequestBody ProductoPersonalizadoDTO producto);
+    @PostMapping("/valid")
+     RespuestaValidacion validarProductoPersonalizado(@RequestBody ProductoPersonalizadoDTO producto);
 }

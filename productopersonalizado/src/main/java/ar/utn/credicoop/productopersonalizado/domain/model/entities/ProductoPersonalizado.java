@@ -39,7 +39,7 @@ public class ProductoPersonalizado extends Persistente{
         this.personalizaciones = personalizaciones;
         this.estaPublicado = false;
     }
-//TODO ARREGLAR ENCAPSULAMIENTO
+
 
     public Double calcularPrecioFinal(double precioBase){
         return precioBase + this.precioDeLasPersonalizaciones();
