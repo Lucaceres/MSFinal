@@ -11,6 +11,7 @@ import ar.utn.credicoop.productobase.domain.repositories.RepoArea;
 import ar.utn.credicoop.productobase.domain.repositories.RepoProductoBase;
 import ar.utn.credicoop.productobase.domain.repositories.RepoTIpoPersonalizacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,6 +63,22 @@ public class MSProductoBaseController {
         }
         return new RespuestaValidacion(false,"Producto base no encontrado!");
 
+    }
+
+    @Transactional
+    @PostMapping("/precio")
+    public Double buscarPrecioBase(@RequestBody Integer productoBaseId)
+    {
+        return repoProductoBase.findById(productoBaseId).get().getPrecioBase();
+
+    }
+
+    @Transactional
+    @PostMapping("/nombre")
+    String buscarNombreProductoBase(@RequestBody Integer productoBaseId)
+    {
+        //NO VERIFICAMOS QUE EXISTA PORQUE YA ESTA VERIFICADO EN OTROS LADOS
+        return repoProductoBase.findById(productoBaseId).get().getNombre();
     }
 
 

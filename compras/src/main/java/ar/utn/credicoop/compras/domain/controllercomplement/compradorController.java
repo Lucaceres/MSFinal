@@ -3,6 +3,7 @@ package ar.utn.credicoop.compras.domain.controllercomplement;
 import ar.utn.credicoop.compras.domain.model.entities.*;
 import ar.utn.credicoop.compras.domain.repositories.RepoCompra;
 import ar.utn.credicoop.compras.domain.repositories.RepoComprador;
+import ar.utn.credicoop.compras.domain.repositories.RepoRegistroCompra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
@@ -57,5 +58,7 @@ public class compradorController {
         return new ResponseEntity<>("El comprador no existe", HttpStatus.NOT_FOUND);
 
     }
+
+
 
 }

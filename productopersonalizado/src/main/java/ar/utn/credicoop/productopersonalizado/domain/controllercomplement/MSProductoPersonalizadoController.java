@@ -9,6 +9,7 @@ import ar.utn.credicoop.productopersonalizado.domain.proxys.ProductoBaseProxy;
 import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoMetodoDePago;
 import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoProductoPersonalizado;
 import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoVendedor;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 
 @RestController
 public class MSProductoPersonalizadoController {
@@ -35,6 +37,7 @@ public class MSProductoPersonalizadoController {
     @Autowired
     ProductoBaseProxy productoBaseProxy;
 
+    @Retry(name = "ppersonalizado")
     @Transactional
     @PostMapping("productospersonalizados/{vendedorId}")
     public @ResponseBody ResponseEntity<Object> crearProductoPersonalizado(@PathVariable("vendedorId") Integer vendedorID, @RequestBody ProductoPersonalizadoDTO productoPersonalizadoDTO) {

@@ -29,12 +29,11 @@ public class Item extends Persistente{
         this.productoPersonalizado = productoPersonalizado;
         this.precioItem = precioItem;
     }
-//TODO RESOLVER ESTO(CALCULAR PRECIO CON PROXY)
-    /*
-    public Double calcularPrecio(){
-        return this.productoPersonalizado.calcularPrecioFinal() * this.cantidad;
+
+    public Double calcularPrecio(Double precioTotalPPersonalizado){
+        return precioTotalPPersonalizado * this.cantidad;
     }
 
 
-     */
+
 }

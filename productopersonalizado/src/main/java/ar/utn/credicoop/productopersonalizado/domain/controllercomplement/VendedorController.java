@@ -65,71 +65,7 @@ public class VendedorController {
         return new ResponseEntity<Object>("Alguno de los métodos de pago no existe", HttpStatus.NOT_FOUND);
     }
 
-    //TODO HACER ESTO CON PROXY
-    /*
-    @Transactional
-    @PostMapping("/vendedores/{compraID}/confirmar")
-    public @ResponseBody ResponseEntity<Object> confirmarCompra(@PathVariable("compraID") Integer compraID) {
 
-        //BUSCAMOS LA COMPRA
-        Optional<Compra> compra = repoCompra.findById(compraID);
-
-        if (compra.isPresent()) {
-
-            //CAMBIAMOS EL ESTADO DE LA COMPRA
-
-            LocalDateTime fechaHora = LocalDateTime.now();
-
-            RegistroEstadoCompra nuevoRegistro = new RegistroEstadoCompra(fechaHora, EstadoCompra.CONFIRMADA, compra.get());
-            repoRegistroCompra.save(nuevoRegistro);
-
-            compra.get().getRegistroEstadosCompra().add(nuevoRegistro);
-            repoCompra.save(compra.get());
-
-            // REALIZAMOS LA FACTURA
-
-            List<ItemDTO2> itemsCarrito = compra.get().getCarritoDeCompra().getItemsAComprar().stream().map(item -> new ItemDTO2(item.getCantidad(),new ProductoPersonalizadoDTO2(item.getProductoPersonalizado().getProductoBase().getNombre(),item.getProductoPersonalizado().calcularPrecioFinal()),item.calcularPrecio())).collect(Collectors.toList());
-
-            Double precioTotal = compra.get().getCarritoDeCompra().calcularTotal();
-
-            FacturaDTO factura = new FacturaDTO(compra.get().getMetodoDePago().getMetodoDePago(),
-                    compra.get().getComprador().getNombre(),itemsCarrito,new RegistroCompraDTO(fechaHora, nuevoRegistro.getEstadoCompra()),compra.get().getVendedor().getNombre(),precioTotal);
-
-            return new ResponseEntity<>(new RespuestaDTO(new Mensaje("La venta fue confirmada con éxito"),factura), HttpStatus.CREATED);
-
-
-        }
-
-        return new ResponseEntity<Object>("LA VENTA INGRESADA NO FUE ENCONTRADA", HttpStatus.NOT_FOUND);
-
-    }
-
-    @Transactional
-    @PostMapping("/vendedores/{compraID}/rechazar")
-    public @ResponseBody ResponseEntity<Object> rechazarCompra(@PathVariable("compraID") Integer compraID) {
-
-        //BUSCAMOS LA COMPRA
-        Optional<Compra> compra = repoCompra.findById(compraID);
-
-        if (compra.isPresent()) {
-
-            //CAMBIAMOS EL ESTADO DE LA COMPRA
-            LocalDateTime fechaHora = LocalDateTime.now();
-
-            RegistroEstadoCompra nuevoRegistro = new RegistroEstadoCompra(fechaHora, EstadoCompra.RECHAZADA, compra.get());
-            repoRegistroCompra.save(nuevoRegistro);
-
-            compra.get().getRegistroEstadosCompra().add(nuevoRegistro);
-            repoCompra.save(compra.get());
-
-            return new ResponseEntity<Object>("La venta fue rechazada", HttpStatus.ACCEPTED);
-        }
-
-        return new ResponseEntity<Object>("LA VENTA INGRESADA NO FUE ENCONTRADA", HttpStatus.NOT_FOUND);
-
-    }
-
-     */
 
     @Transactional
     @PostMapping("/vendedores/{vendedorID}/publicaciones")

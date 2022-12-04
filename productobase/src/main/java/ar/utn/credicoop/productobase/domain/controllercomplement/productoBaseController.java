@@ -105,15 +105,16 @@ public class productoBaseController {
                         productoBaseDTO.getTiempoFabricacion(), posiblePersonalizacions);
 
                 //3) Hacer el save en el repo
-
                 repoProductoBase.save(productoBase);
 
-                return new ResponseEntity<Object>("El producto base fue creado con éxito", HttpStatus.CREATED);
+
+                return new ResponseEntity<Object>(new ProductoBaseRTADTO(productoBase.getNombre(),productoBase.getPrecioBase(),productoBase.getDescripcion(),productoBase.getTiempoFabricacion()), HttpStatus.CREATED);
             }
             else return new ResponseEntity<Object>("El tipo de personalizacion no existe", HttpStatus.NOT_FOUND);
         }
         else return new ResponseEntity<Object>("El area no existe", HttpStatus.NOT_FOUND);
     }
+
 
 
 
