@@ -25,31 +25,28 @@ public class ProductoBase extends Persistente{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductoBase_id", referencedColumnName = "id")
-    private List<AreaPorProductoBase> areas;
+    private List<PosiblePersonalizacion> areas;
 
     public ProductoBase() {}
 
-    public ProductoBase(String nombre, Double precioBase, String descripcion, String tiempoFabricacion, List<AreaPorProductoBase> areas) {
+    public ProductoBase(String nombre, Double precioBase, String descripcion, String tiempoFabricacion, List<PosiblePersonalizacion> areas) {
         this.nombre = nombre;
         this.precioBase = precioBase;
         this.descripcion = descripcion;
         this.tiempoFabricacion = tiempoFabricacion;
         this.areas = areas;
     }
-    public void agregarAreaPorProductoBase(AreaPorProductoBase area){
+    public void agregarAreaPorProductoBase(PosiblePersonalizacion area){
         this.areas.add(area);
     }
 
-//TODO ARREGLAR EL ENCAPSULAMIENTO
-    //ARREGLADO
 
     public Boolean validarPersos(List<Personalizacion> personalizaciones)
     {
-        //return this.areas.stream().anyMatch(areaPorProductoBase -> areaPorProductoBase.validarPersonalizacion(personalizacion));
         for(Personalizacion personalizacion:personalizaciones)
         {
-            this.areas.stream().anyMatch(areaPorProductoBase -> areaPorProductoBase.validarPersonalizacion(personalizacion));
+            this.areas.stream().anyMatch(posiblePersonalizacion -> posiblePersonalizacion.validarPersonalizacion(personalizacion));
         }
-        return personalizaciones.stream().allMatch(personalizacion -> this.areas.stream().anyMatch(areaPorProductoBase -> areaPorProductoBase.validarPersonalizacion(personalizacion)));
+        return personalizaciones.stream().allMatch(personalizacion -> this.areas.stream().anyMatch(posiblePersonalizacion -> posiblePersonalizacion.validarPersonalizacion(personalizacion)));
     }
 }

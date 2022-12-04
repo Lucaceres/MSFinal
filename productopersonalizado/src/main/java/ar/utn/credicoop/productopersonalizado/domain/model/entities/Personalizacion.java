@@ -12,7 +12,8 @@ import javax.persistence.Table;
 @Table(name = "Personalizacion")
 @Setter
 @Getter
-public class Personalizacion extends Persistente{
+public class Personalizacion extends Persistente {
+
     @Column(name = "Descripcion")
     private String descripcion;
 

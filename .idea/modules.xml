@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/MSFinal3.iml" filepath="$PROJECT_DIR$/.idea/MSFinal3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/compras/compras.iml" filepath="$PROJECT_DIR$/compras/compras.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/productobase/productobase.iml" filepath="$PROJECT_DIR$/productobase/productobase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/productopersonalizado/productopersonalizado.iml" filepath="$PROJECT_DIR$/productopersonalizado/productopersonalizado.iml" />
+      <module fileurl="file://$PROJECT_DIR$/servnombres/servnombres.iml" filepath="$PROJECT_DIR$/servnombres/servnombres.iml" />
+    </modules>
+  </component>
+</project>

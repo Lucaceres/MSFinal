@@ -2,7 +2,7 @@ package ar.utn.credicoop.productobase.domain.controllercomplement;
 
 import ar.utn.credicoop.productobase.domain.DTOs.*;
 import ar.utn.credicoop.productobase.domain.model.entities.Area;
-import ar.utn.credicoop.productobase.domain.model.entities.AreaPorProductoBase;
+import ar.utn.credicoop.productobase.domain.model.entities.PosiblePersonalizacion;
 import ar.utn.credicoop.productobase.domain.model.entities.ProductoBase;
 import ar.utn.credicoop.productobase.domain.model.entities.TipoPersonalizacion;
 import ar.utn.credicoop.productobase.domain.repositories.RepoArea;
@@ -31,14 +31,7 @@ public class productoBaseController {
     RepoTIpoPersonalizacion repoTipoPersonalizacion;
 
 
-   /* @Transactional
-    @GetMapping("productobase/{id}")
-    public @ResponseBody ProductoBase peroductoBase(@PathVariable ("id") Integer productobaseId)
-    {
-        return repoProductoBase.findById(productobaseId).orElse(null);
-    }
 
-    */
 
     @Transactional
     @DeleteMapping("/productobase/{id}")
@@ -82,13 +75,13 @@ public class productoBaseController {
 
                 //1.1.1) BUCLE POR CADA AREA POR PRODUCTO BASE
 
-                List<AreaPorProductoBase> areaPorProductoBases = areaPorProductoBaseDTOList.stream().map(area -> {
+                List<PosiblePersonalizacion> posiblePersonalizacions = areaPorProductoBaseDTOList.stream().map(area -> {
 
                             //BUSCO Y SETEO EL AREA
-                            AreaPorProductoBase areaPorProductoBase = new AreaPorProductoBase();
+                            PosiblePersonalizacion posiblePersonalizacion = new PosiblePersonalizacion();
                             Optional<Area> areaAAgregar = repoArea.findById(area.getAreaId());
 
-                            areaPorProductoBase.setArea(areaAAgregar.get());
+                            posiblePersonalizacion.setArea(areaAAgregar.get());
 
                             //Una vez obtenida el area, Busco todos los tipos de personalizacion que le perteneccen
                             //Al AreaPorProductoBase
@@ -96,12 +89,12 @@ public class productoBaseController {
                             area.getTiposPersonalizacionId().forEach(tipo -> {
 
                                         Optional<TipoPersonalizacion> tipoPersonalizacionAAgregar = repoTipoPersonalizacion.findById(tipo);
-                                        areaPorProductoBase.agregarTipoPersonalizacion(tipoPersonalizacionAAgregar.get());
+                                        posiblePersonalizacion.agregarTipoPersonalizacion(tipoPersonalizacionAAgregar.get());
 
                                         // else new ResponseEntity<Object>("El tipo de personalizacion no existe", HttpStatus.NOT_FOUND);
                                     }
                             );
-                            return areaPorProductoBase;
+                            return posiblePersonalizacion;
                         }
                 ).collect(Collectors.toList());
 
@@ -109,7 +102,7 @@ public class productoBaseController {
 
                 ProductoBase productoBase = new ProductoBase(productoBaseDTO.getNombre(),
                         productoBaseDTO.getPrecioBase(), productoBaseDTO.getDescripcion(),
-                        productoBaseDTO.getTiempoFabricacion(), areaPorProductoBases);
+                        productoBaseDTO.getTiempoFabricacion(), posiblePersonalizacions);
 
                 //3) Hacer el save en el repo
 

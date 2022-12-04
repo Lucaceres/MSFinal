@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemDTO2 {
+
     private int cantidad;
     private ProductoPersonalizadoDTO2 producto;
     private Double precioItem;

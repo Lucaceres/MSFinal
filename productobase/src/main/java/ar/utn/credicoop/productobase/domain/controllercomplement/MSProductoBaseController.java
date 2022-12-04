@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class MSProductoBaseController {
+
     @Autowired
     RepoProductoBase repoProductoBase;
 
@@ -47,10 +48,11 @@ public class MSProductoBaseController {
         //VALIDO SI EXISTE EL PRODUCTO BASE
         if(productoBaseOptional.isPresent())
         {
-            //VALIDO SI EXISTE EL TANTO EL AREA COMO TIPO DE PERSO
+            //VALIDO SI EXISTEN TANTO EL AREA COMO TIPO DE PERSO
             if (listaDeAreas.stream().allMatch(area -> area.isPresent()) && listaDeTipoPersonalizacion.stream().allMatch(tipoPersonalizacion -> tipoPersonalizacion.isPresent()))
             {
                 List<Personalizacion> personalizacionList = personalizacionesDTOList.stream().map(personalizacionDTO -> new Personalizacion(personalizacionDTO.getDescripcion(), personalizacionDTO.getPrecio(), repoTipoPersonalizacion.findById(personalizacionDTO.getTipoPersonalizacionId()).get(), repoArea.findById(personalizacionDTO.getAreaId()).get())).collect(Collectors.toList());
+
                 if(productoBaseOptional.get().validarPersos(personalizacionList))
                 {
                     return new RespuestaValidacion(true,"El producto personalizado es valido!");

@@ -11,7 +11,14 @@ import java.util.List;
 @Table(name = "Compras")
 @Getter
 @Setter
-public class Compra extends Persistente{
+public class Compra extends Persistente {
+
+    //@ManyToOne
+    //Esta en otro ms
+    @Column(name = "VendedorId")
+    private Integer vendedor;
+
+    //Esta en otro ms
     @Column(name = "MetodoDePagoId")
     private Integer metodoDePago;
 
@@ -23,10 +30,6 @@ public class Compra extends Persistente{
 
     @ManyToOne
     private Comprador comprador;
-
-    //@ManyToOne
-    @Column(name = "VendedorId")
-    private Integer vendedor;
 
 
     public Compra() {

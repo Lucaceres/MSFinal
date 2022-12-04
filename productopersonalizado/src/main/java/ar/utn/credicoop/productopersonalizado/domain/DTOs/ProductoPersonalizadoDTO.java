@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 public class ProductoPersonalizadoDTO {
+
     private Integer productoBaseId;
 
     private List<PersonalizacionDTO> personalizacionesDTO;

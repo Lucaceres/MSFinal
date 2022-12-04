@@ -8,10 +8,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
-@Table(name = "AreaPorProductoBase")
+@Table(name = "PosiblePersonalizacion")
 @Getter
 @Setter
-public class AreaPorProductoBase extends Persistente{
+public class PosiblePersonalizacion extends Persistente{
+
     @ManyToOne
     @JoinColumn(name = "Area_id", referencedColumnName = "id")
     private Area area;
@@ -19,11 +20,11 @@ public class AreaPorProductoBase extends Persistente{
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<TipoPersonalizacion> tiposPersonalizacion;
 
-    public AreaPorProductoBase(){
-        this.tiposPersonalizacion = new ArrayList<>(); //TODO hacer esto con todos los constructores vacios!!!!!!!!!!
+    public PosiblePersonalizacion(){
+        this.tiposPersonalizacion = new ArrayList<>();
     }
 
-    public AreaPorProductoBase(Area area) {
+    public PosiblePersonalizacion(Area area) {
         this.area = area;
         this.tiposPersonalizacion = new ArrayList<>();
     }
@@ -33,8 +34,6 @@ public class AreaPorProductoBase extends Persistente{
     }
 
 
-    //TODO NO SE COMO HACER ESTO sin romper encapsulammiento (RESUELTO)
-    //osea me parece raro tener otro objeto personalizacion para solamente hacer esta funcion
     public Boolean validarPersonalizacion(Personalizacion personalizacion) {
         return personalizacion.getAreaPersonalizable().equals(this.area) && this.tiposPersonalizacion.stream().anyMatch(tipoP -> tipoP.equals(personalizacion. getTipoPersonalizacion()));
     }
