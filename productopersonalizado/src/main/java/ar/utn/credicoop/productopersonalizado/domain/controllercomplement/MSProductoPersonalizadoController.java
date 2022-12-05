@@ -10,6 +10,7 @@ import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoMetodoDePa
 import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoProductoPersonalizado;
 import ar.utn.credicoop.productopersonalizado.domain.repositories.RepoVendedor;
 import io.github.resilience4j.retry.annotation.Retry;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 
 @RestController
+@Slf4j
 public class MSProductoPersonalizadoController {
 
     @Autowired
@@ -33,16 +35,16 @@ public class MSProductoPersonalizadoController {
 
     @Autowired
     RepoMetodoDePago repoMetodoDePago;
-
     @Autowired
     ProductoBaseProxy productoBaseProxy;
-
-    @Retry(name = "ppersonalizado")
+//TODO HACER FUNCIONAR EL FALLBACK METHOD
+    @Retry(name = "ppersonalizado",fallbackMethod = "noResponde")
     @Transactional
     @PostMapping("productospersonalizados/{vendedorId}")
     public @ResponseBody ResponseEntity<Object> crearProductoPersonalizado(@PathVariable("vendedorId") Integer vendedorID, @RequestBody ProductoPersonalizadoDTO productoPersonalizadoDTO) {
 
         //Consigo la validacion desde el MS producto base
+        log.info("Se llamo al servidor");
         RespuestaValidacion respuesta = productoBaseProxy.validarProductoPersonalizado(productoPersonalizadoDTO);
 
         //Obtengo la lista de pesonalizaciones del DTO
@@ -65,6 +67,11 @@ public class MSProductoPersonalizadoController {
             return new ResponseEntity<Object>(respuesta.getMensaje(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<Object>("Vendedor no encontrado", HttpStatus.BAD_REQUEST);
+    }
+
+    public String noResponde(Exception ex)
+    {
+        return "Servidor no responde";
     }
 
 
