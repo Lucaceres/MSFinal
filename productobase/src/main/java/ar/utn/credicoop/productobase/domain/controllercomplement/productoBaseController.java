@@ -56,7 +56,7 @@ public class productoBaseController {
     public @ResponseBody ResponseEntity<Object> create(@RequestBody ProductoBaseDTO productoBaseDTO) {
 
         //1.0) Obtererner las AreaPorProductoBaseDTO
-        List<AreaPorProductoBaseDTO> areaPorProductoBaseDTOList = productoBaseDTO.getAreasPorProductoBase();
+        List<AreaPorProductoBaseDTO> areaPorProductoBaseDTOList = productoBaseDTO.getPosiblesPersonalizaciones();
 
         // VERIFICO QUE TODAS LAS AREAS INGRESADAS Y TIPOS DE PERSONALIZACION EXISTEN
 

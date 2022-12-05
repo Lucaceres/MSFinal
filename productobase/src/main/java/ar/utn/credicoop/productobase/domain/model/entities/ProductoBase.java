@@ -23,7 +23,7 @@ public class ProductoBase extends Persistente{
     @Column(name = "Tiempo_Fabricacion")
     private String tiempoFabricacion;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ProductoBase_id", referencedColumnName = "id")
     private List<PosiblePersonalizacion> areas;
 

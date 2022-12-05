@@ -37,7 +37,7 @@ public class MSProductoPersonalizadoController {
     RepoMetodoDePago repoMetodoDePago;
     @Autowired
     ProductoBaseProxy productoBaseProxy;
-//TODO HACER FUNCIONAR EL FALLBACK METHOD
+
     @Retry(name = "ppersonalizado",fallbackMethod = "noResponde")
     @Transactional
     @PostMapping("productospersonalizados/{vendedorId}")
@@ -69,9 +69,10 @@ public class MSProductoPersonalizadoController {
         return new ResponseEntity<Object>("Vendedor no encontrado", HttpStatus.BAD_REQUEST);
     }
 
-    public String noResponde(Exception ex)
+    //TODO ver si sale el mensaje
+    public ResponseEntity<Object> noResponde(Exception ex)
     {
-        return "Servidor no responde";
+        return new ResponseEntity<Object>("Servidor no responde, intente más tarde!", HttpStatus.NO_CONTENT);
     }
 
 

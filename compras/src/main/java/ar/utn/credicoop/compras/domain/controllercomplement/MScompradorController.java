@@ -108,17 +108,19 @@ public class MScompradorController {
 
           // REALIZAMOS LA FACTURA
 
-          //item.getProductoPersonalizado().getProductoBase().getNombre()
-
           List<ItemDTO2> itemsCarrito = comprador.get().getCarritoActual().getItemsAComprar().stream().map(item -> new ItemDTO2(item.getCantidad()
               , new ProductoPersonalizadoDTO2(productoPersonalizadoProxy.buscarProductoBase(item.getProductoPersonalizado()), productoPersonalizadoProxy.calcularPrecioTotal(item.getProductoPersonalizado()))
               , item.calcularPrecio(productoPersonalizadoProxy.calcularPrecioTotal(item.getProductoPersonalizado())))).collect(Collectors.toList());
 
 
-          Double precioTotal = comprador.get().getCarritoActual().calcularTotal();
+          comprador.get().getCarritoActual().getItemsAComprar().stream().forEach(item -> item.setPrecioItem(item.calcularPrecio(productoPersonalizadoProxy.calcularPrecioTotal(item.getProductoPersonalizado()))));
+
+          Double precioTotal = comprador.get().getCarritoActual().getItemsAComprar().stream().mapToDouble(item -> item.getPrecioItem() * item.getCantidad()).sum();
+
+          Double precioDeUnItem = comprador.get().getCarritoActual().getItemsAComprar().get(0).getPrecioItem();
 
           FacturaDTO factura = new FacturaDTO(metodoDePagoDTO.getNombre(),
-              comprador.get().getNombre(), itemsCarrito, new RegistroCompraDTO(fechaDeHoy, PENDIENTE), vendedorElegido.getNombre(), precioTotal);
+              comprador.get().getNombre(), itemsCarrito, new RegistroCompraDTO(fechaDeHoy, PENDIENTE), vendedorElegido.getNombre(), 300.0);
 
           comprador.get().getCarritosDeCompra().add(new CarritoDecompra());
 

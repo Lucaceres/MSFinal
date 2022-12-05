@@ -31,7 +31,10 @@ public class Item extends Persistente{
     }
 
     public Double calcularPrecio(Double precioTotalPPersonalizado){
-        return precioTotalPPersonalizado * this.cantidad;
+        Double precioTotal = precioTotalPPersonalizado * this.cantidad;
+        //PrecioItem(precioTotal);
+        this.precioItem = precioTotal;
+        return precioTotal;
     }
 
 

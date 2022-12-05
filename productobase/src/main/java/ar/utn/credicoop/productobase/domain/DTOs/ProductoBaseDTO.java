@@ -16,15 +16,15 @@ public class ProductoBaseDTO {
 
     private String tiempoFabricacion;
 
-    private List<AreaPorProductoBaseDTO> areasPorProductoBase;
+    private List<AreaPorProductoBaseDTO> posiblesPersonalizaciones;
 
     public ProductoBaseDTO() {}
 
-    public ProductoBaseDTO(String nombre, Double precioBase, String descripcion, String tiempoFabricacion, List<AreaPorProductoBaseDTO> areasPorProductoBase) {
+    public ProductoBaseDTO(String nombre, Double precioBase, String descripcion, String tiempoFabricacion, List<AreaPorProductoBaseDTO> posiblesPersonalizaciones) {
         this.nombre = nombre;
         this.precioBase = precioBase;
         this.descripcion = descripcion;
         this.tiempoFabricacion = tiempoFabricacion;
-        this.areasPorProductoBase = areasPorProductoBase;
+        this.posiblesPersonalizaciones = posiblesPersonalizaciones;
     }
 }

@@ -16,14 +16,11 @@ public class MetodoDePago extends Persistente {
     @Column(name = "MetodoDePago")
     private String metodoDePago;
 
-    private String idUnicoMs;
 
-    public MetodoDePago(){
-        this.idUnicoMs = GenerarCodigoUnico.GenerarCodigo();
+    public MetodoDePago() {
     }
 
     public MetodoDePago(String metodoDePago) {
         this.metodoDePago = metodoDePago;
-        this.idUnicoMs = GenerarCodigoUnico.GenerarCodigo();
     }
 }
